@@ -1,0 +1,25 @@
+{
+  "name": "zuhaus-live-appsync-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Backend for the zuhaus-live project created on AWS appsync",
+  "main": "index.js",
+  "scripts": {
+    "sls": "sls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thompson-ad/zuhaus-live-appsync-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thompson-ad/zuhaus-live-appsync-backend/issues"
+  },
+  "homepage": "https://github.com/thompson-ad/zuhaus-live-appsync-backend#readme",
+  "devDependencies": {
+    "serverless": "^2.30.2",
+    "serverless-appsync-plugin": "^1.8.0"
+  }
+}
