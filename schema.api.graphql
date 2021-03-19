@@ -1,0 +1,78 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getImageUploadUrl(extension: String, contentType: String): AWSURL!
+  getMyTimeLine(limit: Int!, nextToken: String!): SessionsPage!
+  getMyProfile: MyProfile!
+  getProfile(screenName: String!): OtherProfile
+  getSessions(userId: ID!, limit: Int!, nextToken: String): SessionsPage!
+}
+
+type Mutation {
+  editMyProfile(newProfile: ProfileInput!): MyProfile!
+  scheduleSession(newSession: SessionInput!): Session!
+  rescheduleSession(sessionId: ID!): Session!
+  cancelSession(sessionId: ID!): Session!
+}
+
+input ProfileInput {
+  name: String!
+  imageUrl: AWSURL
+  location: String
+}
+
+interface IProfile {
+  id: ID!
+  name: String!
+  screenName: String!
+  imageUrl: AWSURL
+  location: String
+  createdAt: AWSDateTime!
+}
+
+type MyProfile implements IProfile {
+  id: ID!
+  name: String!
+  screenName: String!
+  imageUrl: AWSURL
+  location: String
+  createdAt: AWSDateTime!
+  sessions: SessionsPage!
+}
+
+type OtherProfile implements IProfile {
+  id: ID!
+  name: String!
+  screenName: String!
+  imageUrl: AWSURL
+  location: String
+  createdAt: AWSDateTime!
+}
+
+input SessionInput {
+  startsAt: AWSDateTime!
+  status: String!
+  coachId: ID!
+  Title: String!
+  duration: AWSTime!
+}
+
+type Session {
+  id: ID!
+  createdAt: AWSDateTime!
+  startsAt: AWSDateTime!
+  endsAt: AWSDateTime!
+  status: String!
+  coachId: ID!
+  Title: String!
+  duration: AWSTime!
+  sessionId: ID!
+}
+
+type SessionsPage {
+  sessions: [Session!]
+  nextToken: String
+}
