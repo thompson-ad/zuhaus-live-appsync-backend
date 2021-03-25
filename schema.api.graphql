@@ -5,7 +5,6 @@ schema {
 
 type Query {
   getImageUploadUrl(extension: String, contentType: String): AWSURL!
-  getMyTimeLine(limit: Int!, nextToken: String!): SessionsPage!
   getMyProfile: MyProfile!
   getProfile(screenName: String!): OtherProfile
   getSessions(userId: ID!, limit: Int!, nextToken: String): SessionsPage!
@@ -18,6 +17,11 @@ type Mutation {
   cancelSession(sessionId: ID!): Session!
 }
 
+enum RoleType {
+  COACH
+  COACHEE
+}
+
 input ProfileInput {
   name: String!
   imageUrl: AWSURL
@@ -26,6 +30,7 @@ input ProfileInput {
 
 interface IProfile {
   id: ID!
+  role: RoleType!
   name: String!
   screenName: String!
   imageUrl: AWSURL
@@ -35,16 +40,17 @@ interface IProfile {
 
 type MyProfile implements IProfile {
   id: ID!
+  role: RoleType!
   name: String!
   screenName: String!
   imageUrl: AWSURL
   location: String
   createdAt: AWSDateTime!
-  sessions: SessionsPage!
 }
 
 type OtherProfile implements IProfile {
   id: ID!
+  role: RoleType!
   name: String!
   screenName: String!
   imageUrl: AWSURL
